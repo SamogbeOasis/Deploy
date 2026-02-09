@@ -14,10 +14,13 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Deploy to S3
-        uses: jakejarvis/s3-sync-action@v0.5.1
+        uses: aws-actions/s3-sync@v2
         with:
-          args: --acl public-read --follow-symlinks
+          source-dir: './'      # You can change to './build' if you only want build folder
+          dest-dir: '/'         # Root of your S3 bucket
           bucket: ${{ secrets.S3_BUCKET_NAME }}
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1   # <-- replace with your bucket's region
+          delete: true          # Deletes removed files from S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-1   # Replace with your bucket's region
