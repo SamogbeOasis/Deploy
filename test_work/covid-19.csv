@@ -1,0 +1,5 @@
+Date,Cases,Deaths,Names,Sex,Nationality
+2020-01-01,100,5,John,male,USA
+2020-01-02,200,8,James,male,UK
+2020-01-03,300,10,Michael,male,Canada
+2020-01-04,400,12,Angela,female,Australia
