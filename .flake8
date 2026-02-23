@@ -1,0 +1,6 @@
+[flake8]
+exclude =
+    venv_pandas,
+    __pycache__,
+    .git
+max-line-length = 88
