@@ -1,0 +1,32 @@
+name: Deploy to S3
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout your code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Deploy to S3 using aws-actions/s3-sync
+      - name: Deploy to S3
+        uses: aws-actions/s3-sync@v2.0.3
+        with:
+          source-dir: './'        # The folder you want to deploy (change to './build' if needed)
+          dest-dir: '/'           # Root of your S3 bucket
+          bucket: ${{ secrets.S3_BUCKET_NAME }}
+          delete: true            # Deletes files in S3 that were removed locally
+          exclude: |
+            .git/*
+            __pycache__/*
+            *.log
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-1   # Replace with your S3 bucket region
