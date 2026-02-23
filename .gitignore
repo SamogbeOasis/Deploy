@@ -1,3 +1,4 @@
 venv/
 venv_pandas/
 __pycache__/
+.env/
